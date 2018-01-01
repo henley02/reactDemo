@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 export default class Footer extends React.Component {
     render() {
@@ -8,5 +7,12 @@ export default class Footer extends React.Component {
                 <h1>yejiao</h1>
             </footer>
         )
+    }
+
+    componentWillMount(){
+        console.log("BodyIndex-componentWillMount")
+    }
+    componentDidMount(){
+        console.log("bodyIndex - componentDidMount")
     }
 }
