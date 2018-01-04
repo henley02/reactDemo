@@ -21,6 +21,17 @@ let config = merge(baseWebpackConfig, {
         }),
         /*设置热更新*/
         new webpack.HotModuleReplacementPlugin(),
+        /* common 业务公共代码，vendor引入第三方 */
+        new webpack.optimize.CommonsChunkPlugin({
+            name: ["common", "vendor"],
+        }),
+        /* 防止 vendor hash 变化 */
+        // extract webpack runtime and module manifest to its own file in order to
+        // prevent vendor hash from being updated whenever app bundle is updated
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'manifest',
+            chunks: ['vendor']
+        }),
     ],
     module: {
         rules: [
