@@ -1,6 +1,6 @@
 let config = {
     entry: {
-        'index': './src/index.js'
+        'index': './src/js/root.js'
     },
     resolve: {
         extensions: [".js", ".json", ".jsx", ".css", ".pcss"],
