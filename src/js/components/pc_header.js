@@ -32,7 +32,7 @@ class PCHeader extends React.Component {
         }
     }
 
-    handleSubmit() {
+    handleSubmit(e) {
 
     }
 
@@ -79,7 +79,7 @@ class PCHeader extends React.Component {
 
                         <Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible}
                                onCancel={() => this.setModalVisible(false)} onOk={() => this.setModalVisible(false)}
-                               okText="关闭">
+                               okText="关闭" cancelText="取消">
                             <Tabs type="card">
                                 <TabPane tab="注册" key="2">
                                     <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
