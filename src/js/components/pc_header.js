@@ -1,10 +1,7 @@
 import React from 'react';
-import {Row, Col, Menu, Icon, Modal, Button, Tabs, message, Form, Input, Checkbox,} from 'antd';
+import {Row, Col, Menu, Icon, Button, message, Form,} from 'antd';
 
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-const FormItem = Form.Item;
-const TabPane = Tabs.TabPane;
+import ModalRegisterLogin from './modal_register_login';
 
 class PCHeader extends React.Component {
     constructor() {
@@ -48,7 +45,6 @@ class PCHeader extends React.Component {
     }
 
     render() {
-        let {getFieldDecorator} = this.props.form;
         const userShow = this.state.hasLogined
             ? <Menu.Item key="logout" className="register">
                 <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
@@ -88,29 +84,8 @@ class PCHeader extends React.Component {
                             {userShow}
                         </Menu>
 
-                        <Modal title="用户中心" wrapClassName="vertical-center-modal" visible={this.state.modalVisible}
-                               onCancel={() => this.setModalVisible(false)} onOk={() => this.setModalVisible(false)}
-                               okText="关闭" cancelText="取消">
-                            <Tabs type="card">
-                                <TabPane tab="注册" key="2">
-                                    <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
-                                        <FormItem label="账户">
-                                            <Input placeholder="请输入您的账户" {...getFieldDecorator('r_userName')}/>
-                                        </FormItem>
-                                        <FormItem label="密码">
-                                            <Input type="password"
-                                                   placeholder="请输入您的密码" {...getFieldDecorator('r_password')}/>
-                                        </FormItem>
-                                        <FormItem label="确认密码">
-                                            <Input type="password"
-                                                   placeholder="请再次输入您的密码" {...getFieldDecorator('r_confirmPassword')}/>
-                                        </FormItem>
-                                        <Button type="primary" htmlType="submit">注册</Button>
-                                    </Form>
-                                </TabPane>
-                            </Tabs>
-
-                        </Modal>
+                        <ModalRegisterLogin modalVisible={this.state.modalVisible}
+                                            setModalVisible={this.setModalVisible.bind(this)}/>
                     </Col>
                     <Col span={2}></Col>
                 </Row>
