@@ -3,7 +3,7 @@ import {Row, Col, Menu, Icon, Button, message, Form,} from 'antd';
 
 import ModalRegisterLogin from './modal_register_login';
 
-class PCHeader extends React.Component {
+export default class PCHeader extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -21,6 +21,10 @@ class PCHeader extends React.Component {
         this.setState({modalVisible: val});
     }
 
+    setLoginState(val) {
+        this.setState({hasLogined: val});
+    }
+
     handleClick(e) {
         console.log(e);
         this.setState({current: e.key});
@@ -29,20 +33,6 @@ class PCHeader extends React.Component {
         }
     }
 
-    handleSubmit(e) {
-        e.preventDefault();
-        var myFetchOption = {
-            method: 'GET'
-        };
-        var formData = this.props.form.getFieldsValue();
-        console.log(formData);
-        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=register&username=userName&password=password&r_userName=" + formData.r_userName + "&r_password=" + formData.r_password + "&r_confirmPassword=" + formData.r_confirmPassword)
-            .then(res => res.json()).then(json => {
-            this.setState({userNickName: json.NickUserName, userId: json.UserId});
-        })
-        message.success("请求成功！");
-        this.setModalVisible(false);
-    }
 
     render() {
         const userShow = this.state.hasLogined
@@ -85,7 +75,8 @@ class PCHeader extends React.Component {
                         </Menu>
 
                         <ModalRegisterLogin modalVisible={this.state.modalVisible}
-                                            setModalVisible={this.setModalVisible.bind(this)}/>
+                                            setModalVisible={this.setModalVisible.bind(this)}
+                                            setLoginState={this.setLoginState.bind(this)}/>
                     </Col>
                     <Col span={2}></Col>
                 </Row>
@@ -93,5 +84,3 @@ class PCHeader extends React.Component {
         )
     }
 }
-
-export default PCHeader = Form.create({})(PCHeader);
