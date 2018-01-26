@@ -1,6 +1,7 @@
 import React from 'react';
 import {Icon} from 'antd';
 import ModalRegisterLogin from './modal_register_login';
+import {Link} from 'react-router-dom';
 
 export default class MobileHeader extends React.Component {
     constructor() {
@@ -35,7 +36,7 @@ export default class MobileHeader extends React.Component {
     render() {
 
         const userShow = this.state.hasLogined
-            ? <Link>
+            ? <Link to={'/'}>
                 <Icon type="inbox"/>
             </Link>
             : <Icon type="setting" onClick={this.login.bind(this)}/>;

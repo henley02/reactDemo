@@ -1,6 +1,6 @@
 import React from 'react';
 import {Menu, Modal, Button, Tabs, Form, Input, message} from 'antd';
-import {Router, Route, Link} from 'react-router'
+
 
 const FormItem = Form.Item;
 const TabPane = Tabs.TabPane;
@@ -10,8 +10,6 @@ class ModalRegisterLogin extends React.Component {
         super();
         this.state = {
             action: 'login',
-            userNickName: '',
-            userId: '',
         }
     }
 
@@ -24,8 +22,12 @@ class ModalRegisterLogin extends React.Component {
         }
     }
 
+    setUserInfo(userNickName, userId) {
+        this.props.setUserInfo(userNickName, userId);
+    }
+
     setModalVisible(val) {
-        this.props.setModalVisible(val);
+        this.props.setModalVisible(val);//传值给父组件
     }
 
     handleSubmit(e) {
@@ -46,8 +48,9 @@ class ModalRegisterLogin extends React.Component {
             "&r_confirmPassword=" + formData.r_confirmPassword
         ).then(res => res.json())
             .then(json => {
-                this.setState({userNickName: json.NickUserName, userId: json.UserId});
+                this.setUserInfo(json.NickUserName, json.UserId);
             })
+
         if (this.state.action == "login") {
             this.props.setLoginState(true);
         }

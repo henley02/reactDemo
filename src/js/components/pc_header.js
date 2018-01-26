@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import {Row, Col, Menu, Icon, Button, message, Form,} from 'antd';
 
 import ModalRegisterLogin from './modal_register_login';
@@ -33,17 +34,48 @@ export default class PCHeader extends React.Component {
         }
     }
 
+    logout() {
+        localStorage.userId = '';
+        localStorage.userNickName = '';
+        this.setState({
+            hasLogined: false,
+        })
+    }
+
+    setUserInfo(userNickName, userId) {
+        this.setState({
+            userNickName: userNickName,
+            userId: userId,
+        });
+        localStorage.userId = this.state.userId;
+        localStorage.userNickName = this.state.userNickName;
+    }
+
+    componentWillMount() {
+        if (localStorage.userId != '') {
+            this.setState({
+                hasLogined: true,
+                userNickName: localStorage.userNickName,
+                userId: localStorage.userId,
+            })
+        }
+
+
+    }
+
 
     render() {
         const userShow = this.state.hasLogined
             ? <Menu.Item key="logout" className="register">
                 <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
                 &nbsp;&nbsp;
-                <Link target="_blank">
-                    <Button type="dashed" htmlType="button">个人中心</Button>
-                </Link>
+                <Router>
+                    <Route target="_blank" path="/">
+                        <Button type="dashed" htmlType="button">个人中心</Button>
+                    </Route>
+                </Router>
                 &nbsp;&nbsp;
-                <Button type="ghost" htmlType="button">退出</Button>
+                <Button type="ghost" htmlType="button" onClick={this.logout.bind(this)}>退出</Button>
             </Menu.Item>
             :
             <Menu.Item key="register" className="register">
@@ -76,7 +108,9 @@ export default class PCHeader extends React.Component {
 
                         <ModalRegisterLogin modalVisible={this.state.modalVisible}
                                             setModalVisible={this.setModalVisible.bind(this)}
-                                            setLoginState={this.setLoginState.bind(this)}/>
+                                            setLoginState={this.setLoginState.bind(this)}
+                                            setUserInfo={this.setUserInfo.bind(this)}
+                        />
                     </Col>
                     <Col span={2}></Col>
                 </Row>
