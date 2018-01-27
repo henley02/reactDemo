@@ -1,7 +1,7 @@
 import React from 'react';
 import {Icon} from 'antd';
 import ModalRegisterLogin from './modal_register_login';
-import {Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 
 export default class MobileHeader extends React.Component {
     constructor() {
@@ -17,8 +17,40 @@ export default class MobileHeader extends React.Component {
         }
     }
 
+
+    logout() {
+        localStorage.userId = '';
+        localStorage.userNickName = '';
+        this.setState({
+            hasLogined: false,
+        })
+    }
+
+    setUserInfo(userNickName, userId) {
+        this.setState({
+            userNickName: userNickName,
+            userId: userId,
+        });
+        localStorage.userId = this.state.userId;
+        localStorage.userNickName = this.state.userNickName;
+    }
+
+    componentWillMount() {
+        if (localStorage.userId != '') {
+            this.setState({
+                hasLogined: true,
+                userNickName: localStorage.userNickName,
+                userId: localStorage.userId,
+            })
+        }
+    }
+
     login() {
         this.setModalVisible(true);
+    }
+
+    setLoginState(val) {
+        this.setState({hasLogined: val});
     }
 
     setModalVisible(val) {
@@ -36,9 +68,12 @@ export default class MobileHeader extends React.Component {
     render() {
 
         const userShow = this.state.hasLogined
-            ? <Link to={'/'}>
-                <Icon type="inbox"/>
-            </Link>
+            ?
+            <Router>
+                <Linl to={'/'}>
+                    <Icon type="inbox"/>
+                </Linl>
+            </Router>
             : <Icon type="setting" onClick={this.login.bind(this)}/>;
         return (
             <div id="mobileHeader">
@@ -50,8 +85,11 @@ export default class MobileHeader extends React.Component {
                     {userShow}
                 </header>
 
+
                 <ModalRegisterLogin modalVisible={this.state.modalVisible}
-                                    setModalVisible={this.setModalVisible.bind(this)}/>
+                                    setModalVisible={this.setModalVisible.bind(this)}
+                                    setLoginState={this.setLoginState.bind(this)}
+                                    setUserInfo={this.setUserInfo.bind(this)}/>
             </div>
         )
     }

@@ -59,8 +59,6 @@ export default class PCHeader extends React.Component {
                 userId: localStorage.userId,
             })
         }
-
-
     }
 
 
@@ -70,9 +68,9 @@ export default class PCHeader extends React.Component {
                 <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
                 &nbsp;&nbsp;
                 <Router>
-                    <Route target="_blank" path="/">
+                    <Link target="_blank" to="/">
                         <Button type="dashed" htmlType="button">个人中心</Button>
-                    </Route>
+                    </Link>
                 </Router>
                 &nbsp;&nbsp;
                 <Button type="ghost" htmlType="button" onClick={this.logout.bind(this)}>退出</Button>
