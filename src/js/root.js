@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, HashRouter, Route, NavLink} from 'react-router-dom'
+import {HashRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 import MediaQuery from 'react-responsive';
 
 import PCIndex from './components/pc_index';
@@ -14,10 +14,12 @@ export default class Root extends React.Component {
         return (
             <Router>
                 <div>
-                    <HashRouter basename={"/"}/>
                     <MediaQuery query="(min-device-width: 1224px)">
-                        <Route exact path="/" component={PCIndex}/>
-                        <Route path="/details/:uniquekey" component={PCNewsDetails}/>
+                        <Switch>
+                            <Route exact path="/" component={PCIndex}/>
+                            <Route path="/details/:uniquekey" component={PCNewsDetails}/>
+                            <Redirect to="/"/>
+                        </Switch>
                     </MediaQuery>
                     <MediaQuery query="(max-device-width: 1224px)">
                         <MobileIndex/>

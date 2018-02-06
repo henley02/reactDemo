@@ -14,8 +14,7 @@ export default class PCNewsDetails extends React.Component {
     };
 
     componentWillMount() {
-        console.log(11111111111111);
-        console.log(this.props.params.uniquekey);
+        console.log(this.props.match.params.uniquekey);
     }
 
     componentDidMount() {
@@ -24,7 +23,7 @@ export default class PCNewsDetails extends React.Component {
             method: 'GET'
         };
         /*+ this.props.params.uniquekey*/
-        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=161028201752132", myFetchOption)
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnewsitem&uniquekey=" + this.props.match.params.uniquekey, myFetchOption)
             .then(response => response.json())
             .then(json => {
                 this.setState({newsItem: json})
