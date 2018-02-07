@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {Row, Col, Menu, Icon, Button, message, Form,} from 'antd';
 
 import ModalRegisterLogin from './modal_register_login';
@@ -67,11 +67,9 @@ export default class PCHeader extends React.Component {
             ? <Menu.Item key="logout" className="register">
                 <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
                 &nbsp;&nbsp;
-                <Router>
-                    <Link target="_blank" to="/">
-                        <Button type="dashed" htmlType="button">个人中心</Button>
-                    </Link>
-                </Router>
+                <Link target="_blank" to="/">
+                    <Button type="dashed" htmlType="button">个人中心</Button>
+                </Link>
                 &nbsp;&nbsp;
                 <Button type="ghost" htmlType="button" onClick={this.logout.bind(this)}>退出</Button>
             </Menu.Item>

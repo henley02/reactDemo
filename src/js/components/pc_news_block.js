@@ -1,6 +1,6 @@
 import React from 'react';
 import {Card} from 'antd';
-import {Link, Route, BrowserRouter as Router} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export default class PCNewsBlock extends React.Component {
     constructor() {
@@ -31,11 +31,9 @@ export default class PCNewsBlock extends React.Component {
         return (
             <div className="topNewsList">
                 <Card>
-                    <Router>
-                        <ul>
-                            {newsList}
-                        </ul>
-                    </Router>
+                    <ul>
+                        {newsList}
+                    </ul>
                 </Card>
             </div>
         )

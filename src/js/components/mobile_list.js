@@ -58,13 +58,11 @@ export default class MobileList extends React.Component {
             '没有加载到任何新闻';
         return (
             <div className="">
-                <Router>
                     <Row>
                         <Col span={24}>
                             {newsList}
                         </Col>
                     </Row>
-                </Router>
             </div>
         )
     }
