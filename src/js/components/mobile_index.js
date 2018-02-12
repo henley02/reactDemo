@@ -1,8 +1,6 @@
 import React from 'react';
-import MobileHeader from './mobile_header';
-import MobileFooter from './mobile_footer';
 import MobileList from './mobile_list';
-import {Tabs,Carousel} from 'antd';
+import {Tabs, Carousel} from 'antd';
 
 const TabPane = Tabs.TabPane;
 export default class MobileIndex extends React.Component {
@@ -16,7 +14,6 @@ export default class MobileIndex extends React.Component {
         }
         return (
             <div>
-                <MobileHeader/>
                 <Tabs>
                     <TabPane tab="头条" key="1">
                         <div className="carousel">
@@ -50,7 +47,6 @@ export default class MobileIndex extends React.Component {
                         <MobileList count="20" type="yule"/>
                     </TabPane>
                 </Tabs>
-                <MobileFooter/>
             </div>
         )
     }
