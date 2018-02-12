@@ -67,7 +67,7 @@ export default class PCHeader extends React.Component {
             ? <Menu.Item key="logout" className="register">
                 <Button type="primary" htmlType="button">{this.state.userNickName}</Button>
                 &nbsp;&nbsp;
-                <Link target="_blank" to="/">
+                <Link target="_blank" to={`/usercenter`}>
                     <Button type="dashed" htmlType="button">个人中心</Button>
                 </Link>
                 &nbsp;&nbsp;

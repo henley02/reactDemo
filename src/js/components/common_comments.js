@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Col, Form, Button, Card, Input} from 'antd';
+import {Row, Col, Form, Button, Card, Input, notification} from 'antd';
 
 const FormItem = Form.Item;
 const {TextArea} = Input;
@@ -37,6 +37,21 @@ class CommonComments extends React.Component {
             });
     }
 
+    addUserCollection() {
+        var myFetchOption = {
+            method: 'GET'
+        };
+
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=" + localStorage.userid + "&uniquekey=" + this.props.uniquekey, myFetchOption)
+            .then(response => response.json())
+            .then(json => {
+                notification['success']({
+                    message: '提示',
+                    description: '收藏此文章成功！',
+                });
+            });
+    }
+
     render() {
         let {getFieldDecorator} = this.props.form;
         const {comments} = this.state;
@@ -58,9 +73,12 @@ class CommonComments extends React.Component {
                         <Form onSubmit={this.handleSubmit.bind(this)}>
                             <FormItem label={"您的评论"}>
                                 <TextArea type="textarea"
-                                       placeholder="随便写" {...getFieldDecorator('remark', {initialVal: ''})}/>
+                                          placeholder="随便写" {...getFieldDecorator('remark', {initialVal: ''})}/>
                             </FormItem>
                             <Button type="primary" htmlType="submit">提交评论</Button>
+                            &nbsp;&nbsp;
+                            <Button type={"primary"} htmlType="button"
+                                    onClick={this.addUserCollection.bind(this)}>收藏该文章</Button>
                         </Form>
                     </Col>
                 </Row>

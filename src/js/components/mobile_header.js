@@ -69,10 +69,12 @@ export default class MobileHeader extends React.Component {
 
         const userShow = this.state.hasLogined
             ?
-                <Link to={'/'}>
-                    <Icon type="inbox"/>
-                </Link>
-            : <Icon type="setting" onClick={this.login.bind(this)}/>;
+            <Link to={`/usercenter`}>
+                <Icon type="inbox"/>
+            </Link>
+            :
+            <Icon type="setting" onClick={this.login.bind(this)}/>;
+
         return (
             <div id="mobileheader">
                 <header>
