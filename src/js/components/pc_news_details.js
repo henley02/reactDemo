@@ -1,6 +1,7 @@
 import React from 'react';
-import {Row, Col, } from 'antd';
+import {Row, Col,} from 'antd';
 import PCNewsImageBlock from './pc_news_image_block';
+import CommonComment from './common_comments';
 
 export default class PCNewsDetails extends React.Component {
     constructor() {
@@ -39,6 +40,7 @@ export default class PCNewsDetails extends React.Component {
                     <Col span={2}></Col>
                     <Col span={14} className="container">
                         <div className="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
+                        <CommonComment uniquekey={this.props.match.params.uniquekey}/>
                     </Col>
                     <Col span={6}>
                         <PCNewsImageBlock count={40} type={"top"} width="100%" cardTitle={"相关新闻"} imageWidth="130px"/>

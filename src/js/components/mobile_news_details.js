@@ -1,5 +1,6 @@
 import React from 'react';
 import {Row, Col,} from 'antd';
+import CommonComment from './common_comments';
 
 export default class MobileNewsDetails extends React.Component {
     constructor() {
@@ -38,6 +39,8 @@ export default class MobileNewsDetails extends React.Component {
                     <Row>
                         <Col span={24} className="container">
                             <div className="articleContainer" dangerouslySetInnerHTML={this.createMarkup()}></div>
+                            <hr/>
+                            <CommonComment uniquekey={this.props.match.params.uniquekey}/>
                         </Col>
                     </Row>
                 </div>
