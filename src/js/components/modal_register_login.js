@@ -13,11 +13,10 @@ class ModalRegisterLogin extends React.Component {
         }
     }
 
-    changeTab(e) {
-        console.log(e);
-        if (this.key == 1) {
+    changeTab(key) {
+        if (key == 1) {
             this.setState({action: 'login'});
-        } else if (this.key == 2) {
+        } else if (key == 2) {
             this.setState({action: 'register'});
         }
     }
@@ -39,6 +38,7 @@ class ModalRegisterLogin extends React.Component {
 
         var formData = this.props.form.getFieldsValue();
         console.log(formData);
+
         fetch("http://newsapi.gugujiankong.com/Handler.ashx?" +
             "action=" + this.state.action +
             "&username=" + formData.userName +
@@ -69,11 +69,14 @@ class ModalRegisterLogin extends React.Component {
                     <TabPane tab="登录" key="1">
                         <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                             <FormItem label="账户">
-                                <Input placeholder="请输入您的账户" {...getFieldDecorator('userName')}/>
+                                {
+                                    getFieldDecorator("userName")(<Input placeholder="请输入您的账户"/>)
+                                }
                             </FormItem>
                             <FormItem label="密码">
-                                <Input type="password"
-                                       placeholder="请输入您的密码" {...getFieldDecorator('password')}/>
+                                {
+                                    getFieldDecorator("password")(<Input type={"password"} placeholder="请输入您的密码"/>)
+                                }
                             </FormItem>
                             <Button type="primary" htmlType="submit">登录</Button>
                         </Form>
@@ -82,15 +85,19 @@ class ModalRegisterLogin extends React.Component {
                     <TabPane tab="注册" key="2">
                         <Form layout="horizontal" onSubmit={this.handleSubmit.bind(this)}>
                             <FormItem label="账户">
-                                <Input placeholder="请输入您的账户" {...getFieldDecorator('r_userName')}/>
+                                {
+                                    getFieldDecorator("r_userName")( <Input placeholder="请输入您的账户"/>)
+                                }
                             </FormItem>
                             <FormItem label="密码">
-                                <Input type="password"
-                                       placeholder="请输入您的密码" {...getFieldDecorator('r_password')}/>
+                                {
+                                    getFieldDecorator("r_password")( <Input placeholder="请输入您的密码" type="password"/>)
+                                }
                             </FormItem>
                             <FormItem label="确认密码">
-                                <Input type="password"
-                                       placeholder="请再次输入您的密码" {...getFieldDecorator('r_confirmPassword')}/>
+                                {
+                                    getFieldDecorator("r_confirmPassword")( <Input placeholder="请再次输入您的密码" type="password"/>)
+                                }
                             </FormItem>
                             <Button type="primary" htmlType="submit">注册</Button>
                         </Form>

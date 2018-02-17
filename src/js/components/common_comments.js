@@ -9,6 +9,7 @@ class CommonComments extends React.Component {
         super(props);
         this.state = {
             comments: '',
+            usercomments: "",
         }
     }
 
@@ -23,14 +24,16 @@ class CommonComments extends React.Component {
             });
     }
 
-    handleSubmit() {
+    handleSubmit(e) {
         e.preventDefault();
         var myFetchOption = {
             method: 'GET'
         };
-        var formData = this.props.form.getFieldValue();
 
-        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=" + localStorage.userid + "&uniquekey=" + this.props.uniquekey + "&comment=" + formData.remark, myFetchOption)
+
+        var formData = this.props.form.getFieldsValue();
+
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=comment&userid=" + localStorage.userId + "&uniquekey=" + this.props.uniquekey + "&comment=" + formData.remark, myFetchOption)
             .then(response => response.json())
             .then(json => {
                 this.componentDidMount();
@@ -42,7 +45,7 @@ class CommonComments extends React.Component {
             method: 'GET'
         };
 
-        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=" + localStorage.userid + "&uniquekey=" + this.props.uniquekey, myFetchOption)
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=uc&userid=" + localStorage.userId + "&uniquekey=" + this.props.uniquekey, myFetchOption)
             .then(response => response.json())
             .then(json => {
                 notification['success']({
@@ -72,8 +75,10 @@ class CommonComments extends React.Component {
                         {commentList}
                         <Form onSubmit={this.handleSubmit.bind(this)}>
                             <FormItem label={"您的评论"}>
-                                <TextArea type="textarea"
-                                          placeholder="随便写" {...getFieldDecorator('remark', {initialVal: ''})}/>
+                                {
+                                    getFieldDecorator("remark", {initialValue: ''})(<TextArea type="textarea"
+                                                                                              placeholder="随便写"/>)
+                                }
                             </FormItem>
                             <Button type="primary" htmlType="submit">提交评论</Button>
                             &nbsp;&nbsp;
