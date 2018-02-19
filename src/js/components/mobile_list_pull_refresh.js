@@ -1,18 +1,14 @@
 import React from 'react';
 import {Row, Col} from 'antd';
 import {Link} from 'react-router-dom'
-import Tloader from 'react-touch-loader';
+import ReactPullToRefresh from 'react-pull-to-refresh';
 
-export default class MobileList extends React.Component {
+export default class MobileListPullRefresh extends React.Component {
     constructor() {
         super();
         this.state = {
             news: '',
-            count: 5,
-            canRefreshResolve: 1,
-            hasMore: 0,
-            initializing: 1,
-            refreshedAt: Date.now(),
+
         }
     }
 
@@ -25,57 +21,18 @@ export default class MobileList extends React.Component {
             .then(json => this.setState({news: json}))
     }
 
-    loadMore(resolve) {
-        setTimeout(() => {
-            var count = this.state.count;
-            this.setState({
-                count: count + 5,
-            })
-            var myFetchOption = {
-                method: 'GET',
-            };
-            fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=" + this.props.type + "&count=" + this.state.count, myFetchOption)
-                .then(response => response.json())
-                .then(json => this.setState({news: json}));
-
-            this.setState({
-                hasMore: count > 0 && count < 50
-            })
+    handleRefresh(resolve, reject) {
+        var myFetchOptions = {
+            method: 'GET'
+        };
+        fetch("http://newsapi.gugujiankong.com/Handler.ashx?action=getnews&type=yule" + "&count=20", myFetchOptions).then(response => response.json()).then(json => {
+            this.setState({news: json});
             resolve();
-
-        }, 2e3);
-
+        });
     }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                hasMore: 1,
-                initializing: 2,
-            })
-        }, 2e3)
-    }
-
-    toggleCanReresh() {
-        this.setState({canRefreshResolve: !this.state.canRefreshResolve});
-    };
 
     render() {
-
-        var {hasMore, initializing, refreshedAt, canRefreshResolve} = this.state;
-        var {refresh, loadMore, toggleCanReresh} = this;
-
-        const styleImage = {
-            display: "block",
-            width: this.props.imageWidth,
-            height: "90px"
-        };
-        const styeH3 = {
-            width: this.props.imageWidth,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis"
-        };
         const {news} = this.state;
         const newsList = news.length
             ?
@@ -105,14 +62,12 @@ export default class MobileList extends React.Component {
             <div className="view">
                 <Row>
                     <Col span={24}>
-                        <Tloader className="main" autoLoadMore={true} onRefresh={refresh}
-                                 onLoadMore={this.loadMore.bind(this)} hasMore={hasMore} initializing={initializing}>
-                            {newsList}
-                        </Tloader>
-                    </Col>
+                        <ReactPullToRefresh onRefresh={this.handleRefresh.bind(this)} style={{textAlign: 'center'}}>
+                            <span className="genericon genericon-next"></span>
+                            <div>{newsList}</div>
+                        </ReactPullToRefresh></Col>
                 </Row>
             </div>
         )
     }
-
 }

@@ -15,6 +15,7 @@ import MobileFooter from './components/mobile_footer';
 import MobileIndex from './components/mobile_index';
 import MobileNewsDetails from './components/mobile_news_details';
 import MobileUserCenter from './components/mobile_usercenter';
+import ReduxDemo from './components/redux-demo';
 
 import 'antd/dist/antd.css';
 
@@ -40,6 +41,7 @@ export default class Root extends React.Component {
                             <Route exact path="/" component={MobileIndex}/>
                             <Route path="/usercenter" component={MobileUserCenter}/>
                             <Route path="/details/:uniquekey" component={MobileNewsDetails}/>
+                            <Route path="/reduxdemo" component={ReduxDemo}/>
                             <Redirect to="/"/>
                         </Switch>
                         <MobileFooter/>

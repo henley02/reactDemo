@@ -1,5 +1,6 @@
 import React from 'react';
 import MobileList from './mobile_list';
+import MobileListPullRefresh from './mobile_list_pull_refresh';
 import {Tabs, Carousel} from 'antd';
 
 const TabPane = Tabs.TabPane;
@@ -38,7 +39,7 @@ export default class MobileIndex extends React.Component {
                         <MobileList count="20" type="shehui"/>
                     </TabPane>
                     <TabPane tab="国内" key="3">
-                        <MobileList count="20" type="guonei"/>
+                        <MobileListPullRefresh count="20" type="guonei"/>
                     </TabPane>
                     <TabPane tab="国际" key="4">
                         <MobileList count="20" type="guoji"/>
